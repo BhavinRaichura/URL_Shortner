@@ -4,6 +4,7 @@ from hashids import Hashids
 from application.models import User, ShortUrls
 from application.forms import LoginForm, RegisterForm
 
+app.SECRET_KEY = 'as$$Gnz5H1H2bWvBbMnZ5A^XCcDsakjd54641254645449$^*efkjlksdmn&K$xz#@3205V@4#98yt4q23wqo!ADei'
 
 hashids = Hashids(
     salt="as$$Gnz5H1H2bWvBbMnZ5A^XCcD&K$xz#@3205V@4#98yt4q23wqo!ADei",
