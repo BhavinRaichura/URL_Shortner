@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 client = MongoClient("mongodb+srv://<user>:<password>@cluster0.73alj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
 
-db = client
-db.init_app(app)
+db = client.urlshortner
+
 
 from application import routes

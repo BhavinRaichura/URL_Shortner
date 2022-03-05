@@ -15,8 +15,7 @@ class User(db.Document):
     def get_password(self, password):
         return check_password_hash(self.password, password)
 
-class Urls(db.Document):
+class ShortUrls(db.Document):
     user_id = db.StringField(max_length=50,unique=True)
     url_id = db.IntField()
     original_url = db.StringField(max_length=500)
-    
