@@ -12,7 +12,6 @@ hashids = Hashids(
     )
 
 
-
 def encoding(num):
     url_id = hashids.encode(num)
     return url_id
@@ -22,35 +21,37 @@ def encoding(num):
 @app.route('/index')
 @app.route('/')
 def home():
-    if session:
-        if request.method == "post":
-            original_url = request.form['original_url']
-    
-    return "hello world"
+    return render_template('index.html')
 
-@app.route('/signup')
+@app.route('/Signup',methods=['POST','GET'])
 def signup():
-    return "signup"
+    if request.method=='post':
+        # user form 
+        return
+    
+    form = RegisterForm()
+    return render_template('signup.html',form=form)
 
 
 @app.route('/user/<string:username>')
 def user_portal(username=None):
-    if session:
-        list_urls=db.shorturls.find({'user_id':session[user_id]})
+    if session.get('user_id'):
+        list_urls=db.shorturls.find({'user_id':session.get('user_id')})
         return render_template('user.html',list_urls=list_urls,username =username,shortedurl=None)
     return redirect(url_for('home'))
 
 @app.route('/create',methods=['POST','GET'])
 def create():
-    if session:
+    if session.get('user_id'):
         if request.method=='post':
             original_url = request.form['original_url']
             # need count of id_num
             id_num+=1
             url_id =encoding(id_num)
-            user_id = session['user_id']
+            user_id = session.get('user_id')
             db.shorturls.insert_one({'user_id':user_id,'url_id':url_id,'original_url':original_url})
-            return redirect(url_for('user_portal'))
+            username=session.get('username')
+            return redirect(url_for('user_portal',username=username))
     return redirect(url_for('home'))
 
 
@@ -72,12 +73,14 @@ def login():
         db_user_info = db.user.find_one({'email':email})
         if db_user_info != None and email == db_user_info['email'] and password == db_user_info['password']:
             session['user_id']=db_user_info['user_id']
-            return redirect(url_for('user_portal',username=db_user_info['name']))
+            session['username']=db_user_info['name']
+            return redirect(url_for('user_portal',username=session.get('username')))
     form = LoginForm()
     return render_template('login.html',form = form)
 
 
 @app.route('/logout')
 def logout():
+    session['username']=False
     session.pop('user_id',None)
     return redirect(url_for('home'))
