@@ -29,8 +29,7 @@ def decoding(code):
 @app.route('/index')
 @app.route('/')
 def home(msg=""):
-    
-    return render_template('index.html',msg=msg)
+    return render_template('child/home.html',msg=msg)
 
 
 @app.route('/signup',methods=['POST','GET'])
@@ -54,7 +53,7 @@ def signup():
             #return redirect(url_for('user_portal',username=username))
             return redirect(url_for('home',msg='account successfully created'))
         return redirect(url_for('home',msg='already have account'))
-    return render_template('login.html',reg_form=reg_form,login_form =login_form)
+    return render_template('child/login.html',reg_form=reg_form,login_form =login_form)
 
 
 @app.route('/user/<string:username>')
@@ -83,7 +82,7 @@ def create():
             username=session.get('username')
             new_short_url = 'http://127.0.0.2:50002/u/' + encoding(count_urls)
             print(new_short_url)
-            return render_template('index.html',msg=new_short_url)
+            return render_template('child/home.html',msg=new_short_url)
             #return redirect(url_for('user_portal',username=username))
     return redirect(url_for('home',msg="Please login first"))
 
@@ -110,7 +109,7 @@ def login():
             print("session")
             return redirect(url_for('home',msg='successfully login'))
             #return redirect(url_for('user_portal',username=session.get('username')))
-    return render_template('login.html',reg_form=reg_form,login_form =login_form)
+    return render_template('child/login.html',reg_form=reg_form,login_form =login_form)
 
 
 

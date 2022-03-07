@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>hash.me | Log In</title>
+<link rel="stylesheet" href="../static/styles.css">
+{%endblock%}
+
+{%block content %}
+
+
+<div class="hero">
+    <img src="images/logo.png" class="logo" alt="hash.me">
+
+
+    <div class="form-box">
+
+        <div class="button-box">
+            <div id="btn"></div>
+            <button type="button" class="toggle-btn" onclick="login()">Log In</button>
+            <button type="button" class="toggle-btn" onclick="register()">Register</button>
+        </div>
+
+        <form id="login" class="input-group" action="{{url_for('login')}}" method="post">
+            {{ login_form.hidden_tag() }}
+            {{login_form.email}}
+            {{login_form.password}}
+            {{ login_form.submit() }}
+        </form>
+
+
+        <form id="register" class="input-group" action="{{url_for('signup')}}" method="post">
+            {{ reg_form.hidden_tag() }}
+            {{reg_form.username}}
+            {{reg_form.email}}
+            {{reg_form.password}}
+            {{ reg_form.submit() }}
+        </form>
+    </div>
+
+</div>
+
+<script src="../static/app.js"></script>
+
+</body>
+
+{% endblock%}
