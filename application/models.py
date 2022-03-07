@@ -3,11 +3,11 @@ from application import db
 from werkzeug.security import generate_password_hash,check_password_hash
 
 class User(db.Document):
-    email = db.EmailField(max_length = 50,unique=True)
-    password = db.PasswordField(max_length=20)
     name = db.StringField(max_length=20)
-    user_id = db.StringField(max_length=50,unique=True)
-    total_urls = db.IntField()
+    email = db.StringField(max_length = 50,unique=True)
+    password = db.StringField(max_length=30)
+    user_id = db.IntField()
+    total_urls = db.IntField(default=0)
 
     def set_password(self, password):
         self.password = generate_password_hash(password)
@@ -16,6 +16,7 @@ class User(db.Document):
         return check_password_hash(self.password, password)
 
 class ShortUrls(db.Document):
-    user_id = db.StringField(max_length=50,unique=True)
+    __tablename__ = 'shorted_url'
+    user_id = db.IntField()
     url_id = db.IntField()
     original_url = db.StringField(max_length=500)
