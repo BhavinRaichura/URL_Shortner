@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>home</title>
+
+    <!--SHORTCUT ICON-->
+    <link rel="shortcut icon" href="../static/images/logo.jpg">
+
+    <!--META TAGS-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!--FONT AWESOME-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!--GOOGLE FONTS-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@700;800;900&family=Source+Sans+3:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!--EXTERNAL STYLE SHEET-->
+    <link rel="stylesheet" href="../static/index.css">
+</head>
+
+<body>
+
+    <div class="content">
+
+        <img src="images/logo.png" class="logo" alt="hash.me">
+
+        {% if session['username'] %}
+        <h2>
+            <a href="#">
+                Hello {{session['username']}}
+            </a>
+        </h2>
+        {%else%}
+        <h2>
+            <a href="{{url_for('login')}}">Login</a>
+        </h2>
+        {% endif %}
+
+        <h1>hash.me</h1>
+        <h2>Short url and also costemize</h2>
+
+        <div class="arrow bounce">
+            <a class="fa fa-arrow-down" href="#"></a>
+        </div>
+
+        {% if msg!="" %}
+        <h3>
+            <a href="{{msg}}" target="_blank">
+                {{msg}}
+            </a>
+        </h3>
+        {%endif%}
+
+        <form action="{{url_for('create')}}" method="post">
+            <section class="button">
+                <div class="searchBox">
+                    <input class="searchInput" type="url" id="original_url" name="original_url" value="{{request.form.original_url}}" placeholder="Enter your URL" required="">
+                    <button class="searchButton" href="#">Short Me</button>
+                </div>
+            </section>
+
+        </form>
+
+        <!---
+        <section class="social_icons">
+            <a href="#" title="Facebook" target="_blank"><i class="fa fa-facebook"></i></a>
+            <a href="#" title="Instagram" target="_blank"><i class="fa fa-instagram"></i></a>
+            <a href="#" title="Twitter" target="_blank"><i class="fa fa-twitter"></i></a>
+            <a href="#" title="Telegram" target="_blank"><i class="fa fa-telegram"></i></a>
+        </section>
+        -->
+    </div>
+</body>
+
+</html>

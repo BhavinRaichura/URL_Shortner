@@ -6,39 +6,51 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="../static/styles.css">
+
 </head>
 
 <body>
-    <div class="row">
-        <div class="col-md-6 offset-md-3">
-            <form name="login" action="{{url_for('login')}}" method="post">
-                <fieldset class="form-group">
-                    <legend>{{title}}</legend>
-                    {{ form.hidden_tag() }}
+    <html>
 
-                    <p>
-                        {{ form.email.label }}<br>
-                        {{ form.email(size=35) }}
-                        {% for error in form.email.errors %}
-                        <span class="error-message">{{ error }}</span>
-                        {% endfor %}
-                    </p>
-                    <p>
-                        {{ form.password.label }}<br>
-                        {{ form.password(size=15) }}
-                        {% for error in form.password.errors %}
-                        <span class="error-message">{{ error }}</span>
-                        {% endfor %}
-                    </p>
+    <head>
+        <title>Login And Register</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
 
-                    <p>
+    <body>
+        <div class="hero">
+            <div class="form-box">
 
-                        {{ form.submit() }}
-                    </p>
-                </fieldset>
-            </form>
+                <div class="button-box">
+                    <div id="btn"></div>
+                    <button type="button" class="toggle-btn" onclick="login()">Log In</button>
+                    <button type="button" class="toggle-btn" onclick="register()">Register</button>
+                </div>
+
+                <form id="login" class="input-group" action="{{url_for('login')}}" method="post">
+                    {{ login_form.hidden_tag() }}
+                    {{login_form.email}}
+                    {{login_form.password}}
+                    {{ login_form.submit() }}
+                </form>
+
+
+                <form id="register" class="input-group" action="{{url_for('signup')}}" method="post">
+                    {{ reg_form.hidden_tag() }}
+                    {{reg_form.username}}
+                    {{reg_form.email}}
+                    {{reg_form.password}}
+
+                    {{ reg_form.submit() }}
+                </form>
+            </div>
+
         </div>
-    </div>
-</body>
 
-</html>
+        <script src="../static/app.js"></script>
+
+
+    </body>
+
+    </html>
