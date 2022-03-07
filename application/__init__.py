@@ -7,5 +7,4 @@ client = MongoClient("mongodb+srv://<user>:<password>@cluster0.73alj.mongodb.net
 
 db = client.urlshortner
 
-
 from application import routes
