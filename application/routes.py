@@ -36,7 +36,7 @@ def home(msg=""):
 def signup():
     reg_form = RegisterForm()
     login_form = LoginForm()
-    if session['username']!=False:
+    if session.get('username'):
         return redirect(url_for('home',msg='already login'))
     if reg_form.validate_on_submit():
         username = reg_form.username.data
@@ -58,27 +58,33 @@ def signup():
 
 @app.route('/user/<string:username>')
 def user_portal(username=None):
-    if session['username'] != False:
-        obj_urls=db.shorturls.find({'user_id':session['user_id']})
+    if session.get('username') and session.get('username')==username :
+        obj_urls=db.shortedurl.find({'user_id':session.get('user_id')})
+        print(obj_urls)
         list_urls =[]
         for i in obj_urls:
-            list_urls.append(i)
-        return render_template('user.html',list_urls=list_urls,username =username,shortedurl=None)
+            s=dict(i)
+            list_urls.append([encoding(s['url_id']),s['original_url']])
+            
+        NoOfUrls = len(list_urls)
+        print("urls: ",NoOfUrls)
+        return render_template('child/user.html',list_urls=list_urls,username =username,NoOfUrls=NoOfUrls,shortedurl=None)
     return redirect(url_for('home'))
 
 
 
 @app.route('/create',methods=['POST','GET'])
 def create():
-    if session['username'] != False:
+    if session.get('username'):
         print(session)
         print(request.method)
         if request.method=='POST':
             original_url = request.form['original_url']
+            #url_name = request.form['url_name']
             print(original_url)
             count_urls =9900000+int(db.command("collstats", "shortedurl")['count']) +1
             user_id = session['user_id']
-            db.shortedurl.insert_one({'user_id':user_id,'url_id':count_urls,'original_url':original_url})
+            db.shortedurl.insert_one({'user_id':user_id,'url_id':count_urls,'original_url':original_url}) #'name':url_name
             username=session.get('username')
             new_short_url = 'http://127.0.0.2:50002/u/' + encoding(count_urls)
             print(new_short_url)
@@ -94,7 +100,7 @@ def login():
     login_form = LoginForm()
     reg_form = RegisterForm()
     print(session)
-    if session['username']!=False:
+    if session.get('username'):
         return redirect(url_for('home',msg='already login'))
     if login_form.validate_on_submit():
         email = login_form.email.data

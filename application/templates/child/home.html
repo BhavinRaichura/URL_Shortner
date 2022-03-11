@@ -27,26 +27,28 @@
 
     <span class="logo">
         <img src="images/logo.png" alt="hash.me">
-        {% if session['username'] %}
-        | <a href="{{url_for('logout')}}">LogOut</a>
+        {% if session.get('username') %}
+        | <a href="{{url_for('logout')}}">Log out</a>
+        {%else%}
+        | <a href="{{url_for('login')}}">Log In</a>
         {% endif %}
     </span>
 
 
     {% if session['username'] %}
     <h2>
-        <a href="#">
+        <a href="{{url_for('user_portal',username=session['username'])}}">
             Hello {{session['username']}}
         </a>
     </h2>
     {%else%}
     <h2>
-        <a href="{{url_for('login')}}">Log In</a>
+        <a href="{{url_for('signup')}}">Create Account</a>
     </h2>
     {% endif %}
 
     <h1>hash.me</h1>
-    <h2>Short url and also costemize</h2>
+    <h2>Are you having trouble handling long URLs? Don't worry hash.me will shorten your URLs for free</h2>
 
     <div class="arrow bounce">
         <a class="fa fa-arrow-down" href="#"></a>
@@ -63,8 +65,9 @@
     <form action="{{url_for('create')}}" method="post">
         <section class="button">
             <div class="searchBox">
-                <input class="searchInput" type="url" id="original_url" name="original_url" value="{{request.form.original_url}}" placeholder="Enter your URL" required="">
-                <button class="searchButton" href="#">Short Me</button>
+                <input class="searchInput" type="url" id="original_url" name="original_url" value="{{request.form.original_url}}" placeholder="URL" required="">
+                <!--<input class="searchInput" type="text" id="url_name" name="url_name" value="{{request.form.url_name}}" placeholder="Name" required="">--->
+                <button class="searchButton" href="#">Short URL</button>
             </div>
         </section>
 
