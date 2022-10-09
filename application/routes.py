@@ -3,7 +3,7 @@ from application import app, db
 #from application.models import User, ShortUrls
 from hashids import Hashids
 from application.forms import LoginForm, RegisterForm
-from flask_mail import Mail, Message
+#from flask_mail import Mail, Message
 
 app.config['SECRET_KEY'] = 'as$$Gnz5H1H2bWvBbMnZ5A^XCcDsakjd54641254645449$^*efkjlksdmn&K$xz#@3205V@4#98yt4q23wqo!ADei'
 
@@ -86,7 +86,7 @@ def create():
             user_id = session['user_id']
             db.shortedurl.insert_one({'user_id':user_id,'url_id':count_urls,'original_url':original_url}) #'name':url_name
             username=session.get('username')
-            new_short_url = 'http://127.0.0.2:50002/u/' + encoding(count_urls)
+            new_short_url = 'http://127.0.0.1:5000/u/' + encoding(count_urls)
             print(new_short_url)
             return render_template('child/home.html',msg=new_short_url)
             #return redirect(url_for('user_portal',username=username))
