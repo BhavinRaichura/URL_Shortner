@@ -2,7 +2,7 @@
 
 
 {% block head %}
-<title>hash.me | {{session.get('username')}}</title>
+<title>MyReq | {{session.get('username')}}</title>
 <link rel="stylesheet" href="../static/styles.css">
 <style>
     body {
@@ -64,7 +64,7 @@
 
 {% block content %}
 <span class="logo">
-    <img src="images/logo.png" alt="hash.me">
+    <img src="images/logo.png" alt="MyReq logo">
     {% if session.get('username') %}
     | <a href="{{url_for('logout')}}">Log out</a>
     {%else%}
