@@ -3,7 +3,7 @@
 
 
 {% block head %}
-<title>hash.me | Home</title>
+<title>MyReq | Home</title>
 <!--SHORTCUT ICON-->
 <link rel="shortcut icon" href="../static/images/logo.jpg">
 
@@ -26,7 +26,7 @@
 <div class="content">
 
     <span class="logo">
-        <img src="images/logo.png" alt="hash.me">
+        <img src="images/logo.png" alt="MyReq logo">
         {% if session.get('username') %}
         | <a href="{{url_for('logout')}}">Log out</a>
         {%else%}
@@ -47,8 +47,8 @@
     </h2>
     {% endif %}
 
-    <h1>hash.me</h1>
-    <h2>Are you having trouble handling long URLs? Don't worry hash.me will shorten your URLs for free</h2>
+    <h1>MyReq</h1>
+    <h2>Are you having trouble handling long URLs? Don't worry I will shorten your URLs for free</h2>
 
     <div class="arrow bounce">
         <a class="fa fa-arrow-down" href="#"></a>
