@@ -54,13 +54,7 @@
         <a class="fa fa-arrow-down" href="#"></a>
     </div>
 
-    {% if msg!="" %}
-    <h3>
-        <a href="{{msg}}" target="_blank">
-            {{msg}}
-        </a>
-    </h3>
-    {%endif%}
+    
 
     <form action="{{url_for('create')}}" method="post">
         <section class="button">
@@ -72,6 +66,14 @@
         </section>
 
     </form>
+    
+    {% if msg!="" %}
+    <h3>
+        <a href="{{msg}}" target="_blank">
+            {{msg}}
+        </a>
+    </h3>
+    {%endif%}
 
     <!---
     <section class="social_icons">
